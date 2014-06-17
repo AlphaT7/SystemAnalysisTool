@@ -1,0 +1,346 @@
+<html>
+<head>
+<!-- System Analysis Tool .hta script developed by the New York Life Team at APAC, Utica NY -->
+<!--
+--- T O    D O    L I S T ---
+modify and add just the file analysis ps1 as a third button
+<! D O N E !> modify credits to just include names, no name catagories
+<! D O N E !> modify credits to open/close
+<! D O N E !> add ibm laptops to the Driver downloads --- ADDED IBM TO LENOVO BUTTON
+<! D O N E !> add pc buyers guide info/links for dell/compucom (3 links) per MG suggestion
+move the code base into seperate files (html/css/javascript/vbscript/powershell/cmd-batch)
+add enable-for-sd/disable tabs to the tools bar
+fix the tools bar to be centered, maybe create a containing div
+add button for comandline power settings to create sd power profile per brian smith suggestion
+modify marquee to look better
+modify tool bar or display to indicate Tim Jamesons encryption checker
+modify tool bar to detect drivers for the rapid storage driver version per kelby suggestion
+
+-->
+
+<meta http-equiv="x-ua-compatible" content="ie=9">
+<SCRIPT LANGUAGE="VBScript">
+
+intLeft = (intHorizontal + 400) / 2
+intTop = (intVertical + 400) / 2
+self.ResizeTo 940,607
+window.moveTo intLeft, intTop
+
+</SCRIPT>
+<title>System Analysis Tool</title>
+<HTA:APPLICATION 
+ID="SystemAnalysis"
+APPLICATIONNAME="Securedoc Checklist Tool"
+BORDER="normal"
+BORDERSTYLE="thin"
+CAPTION="yes"
+CONTEXTMENU="yes"
+ICON="Icons\check.ico"
+INNERBORDER="no"
+MAXIMIZEBUTTON="no"
+MINIMIZEBUTTON="yes"
+NAVIGABLE="no"
+SCROLL="no"
+SCROLLFLAT="yes"
+SELECTION="yes"
+SHOWINTASKBAR="yes"
+SINGLEINSTANCE="yes"
+SYSMENU="yes"
+VERSION="4.0.0"
+WINDOWSTATE="normal"
+/>
+
+<link rel="stylesheet" type="text/css" href="Files\css.css" >
+
+<script type="text/javascript">
+
+setTimeout(function(){
+document.getElementById("nylLogo").style.display="none";
+document.getElementById("menu").style.display="block";
+document.getElementById("systeminfo").style.display="block";
+document.getElementById("button_bar").style.display="block";
+},3750);
+</script>
+
+</head>
+<body>
+<img id="nylLogo" src="https://www.ap.newyorklife.com/Agency/General/FileLink/Static%20Files/Logo_Without_Tagline.png" width="150" height="150">
+
+<div id='updatealert'><marquee behavior="alternate" direction="left" > - Please check Tech Tools for the Latest Version of System Analysis - </marquee></div>
+<div id='menu'>
+<div id='systeminfobutton' class='menu_buttons all_buttons_color' onclick='displayInfo()'> - System Info - </div>
+<div id='fileanalysisbutton' class='menu_buttons all_buttons_color' onclick='displayFileInfo()'>File Analysis</div>
+<div id='systemrecoverybutton' class='menu_buttons all_buttons_color' onclick='displayRecovery()'>System Backup</div>
+<div id='htaversion' onclick='aboutOpen()'>Version</div>
+</div><!-- end menu -->
+
+<div id='systeminfo'>
+<div class='title'>System Type</div><br>
+<div class='left'>Manufacturer: </div><div id='manufacturer' class='right'>" & y.Manufacturer & "</div><br><br>
+<div class='left'>Model: </div><div id='model' class='right'>" & y.Model & "</div><br><br>
+
+<div class='title'>Operating System</div><br>
+<div class='left'>OS: </div><div id="os" class='right'>" & y.Caption & "</div><br><br>
+<div class='left'>Service Pack: </div><div id='servicepack' class='right'>" & y.CSDVersion & "</div><br><br>
+<div class='left'>OS Type: </div><div id='ostype' class='right'>" & y.CreationClassName & "</div><br><br>
+
+<div class='title'>System BIOS</div><br>
+<div class='left'>Service Tag: </div><div id='serialnumber' class='right'>" & y.SerialNumber & "</div><br><br>
+<div class='left'>BIOS Version: </div><div id='biosversion' class='right'>" & y.SMBIOSBIOSVersion & "</div><br><br>
+<div class='left'>BIOS Date: </div><div id='biosdate' class='biosdate'>" & y.ReleaseDate & "</div><div id='biosage'></div><br><br>
+<div class='left'>Check Disk:</div><div id='checkdisk'>" & y.ReleaseDate & "</div><br><br>
+</div><!-- end systeminfo -->
+
+<!-- S T A R T    S Y S T E M    R E C O V E R Y -->
+
+<div id='systemrecovery' class='systemrecovery'>
+<div class='title'>Operating System Backup Tools</div>
+
+<!-- S T A R T    S Y S T E M    R E C O V E R Y    B U T T O N S -->
+<div class='list_left'><br>
+<div id='default_rbutton' class='recovery_button_lit' onclick='displayPanel("default")'>Default</div>
+<div id='dell_rbutton' class='recovery_button_dim' onclick='displayPanel("dell")'>Dell</div>
+<div id='hp_rbutton' class='recovery_button_dim' onclick='displayPanel("hp")'>HP</div>
+<div id='lenovo_rbutton' class='recovery_button_dim' onclick='displayPanel("lenovo")'>Lenovo</div>
+<div id='toshiba_rbutton' class='recovery_button_dim' onclick='displayPanel("toshiba")'>Toshiba</div>
+<div id='asus_rbutton' class='recovery_button_dim' onclick='displayPanel("asus")'>Asus</div>
+<div id='acer_rbutton' class='recovery_button_dim' onclick='displayPanel("acer")'>Acer</div>
+<div id='gateway_rbutton' class='recovery_button_dim' onclick='displayPanel("gateway")'>Gateway</div>
+<div id='sony_rbutton' class='recovery_button_dim' onclick='displayPanel("sony")'>Sony</div>
+<div id='samsung_rbutton' class='recovery_button_dim' onclick='displayPanel("samsung")'>Samsung</div>
+<div id='emachines_rbutton' class='recovery_button_dim' onclick='displayPanel("emachines")'>eMachines</div>
+</div><br>
+<!-- E N D    S Y S T E M    R E C O V E R Y    B U T T O N S -->
+
+<!-- S T A R T    M A N U F A C T U R E R    P R O G R A M    L I S T -->
+
+<!-- D E F A U L T -->
+<div id='default_options' class='list_right' style='display: block'>
+
+<fieldset><legend>Select a Manufacturer</legend></fieldset>
+<img src='Icons\windows_folder.png'>
+
+</div><!-- end default_options -->
+
+<!-- D E L L -->
+<div id='dell_options' class='list_right'>
+
+<fieldset><legend>Dell</legend></fieldset>
+<div class='sr_title'>Dell Backup and Recovery</div><br>
+<div class='left'>Download:</div><div class='right'><a href='http://www.dell.com/support/contents/us/en/19/article/Product-Support/Self-support-Knowledgebase/software-and-downloads/dell-backup-solutions/Dell-Backup-and-Recovery'>Dell Backup & Recovery</a></div><br><br>
+<div class='left'>OS Support</div><div class='right'>Windows 7 / 8 / 8.1</div><br><br>
+
+<div class='sr_title'>Windows 8 / 8.1 Default OS Recovery Tool</div><br>
+<div class='left'>Shortcut:</div><div class='right'><a href='#' onclick='Windows8Recovery()'>RecoveryDrive.exe</a></div><br><br>
+<div class='left'>OS Support</div><div class='right'>Windows 8 / 8.1</div><br><br>
+
+<div class='sr_title'>Dell DataSafe</div><br>
+<div class='left'>Download:</div><div class='right'><a href='http://dslbdownload.datasafelocalbackup.com/dsldownload-en.html'>Dell DataSafe</a></div><br><br>
+<div class='left'>OS Support</div><div class='right'>Windows Vista / 7</div><br><br>
+
+</div><!-- end dell_options -->
+
+<!-- H P -->
+<div id='hp_options' class='list_right'>
+<fieldset><legend>HP</legend></fieldset>
+<div class='sr_title'>HP Recovery Manager</div><br>
+<div class='left'>Download:</div><div class='right'><a href='http://www8.hp.com/us/en/drivers.html'>HP Recovery Manager</a></div><br><br>
+<div class='left'>OS Support</div><div class='right'>Windows Vista / 7 / 8 / 8.1</div><br><br>
+<div class='sr_title'>Windows 8 / 8.1 Default OS Recovery Tool</div><br>
+<div class='left'>Shortcut:</div><div class='right'><a href='#' onclick='Windows8Recovery()'>RecoveryDrive.exe</a></div><br><br>
+<div class='left'>OS Support</div><div class='right'>Windows 8 / 8.1</div><br><br>
+
+</div><!-- end hp_options -->
+
+<!-- L E N O V O -->
+<div id='lenovo_options' class='list_right'>
+<fieldset><legend>Lenovo</legend></fieldset>
+<div class='sr_title'>Windows 8 / 8.1 Default OS Recovery Tool</div><br>
+<div class='left'>Download:</div><div class='right'><a href='#' onclick='Windows8Recovery()'>RecoveryDrive.exe</a></div><br><br>
+<div class='left'>OS Support</div><div class='right'>Windows 8 / 8.1</div><br><br>
+
+<div class='sr_title'>Lenovo Think Vantage Tools - Rescue and Recovery</div><br>
+<div class='left'>Download:</div><div class='right'><a href='http://support.lenovo.com/en_US/detail.page?LegacyDocID=migr-4q2qak'>Rescue and Recovery</a></div><br><br>
+<div class='left'>OS Support</div><div class='right'>Windows Vista / 7</div><br><br>
+
+</div><!-- end lenovo_options -->
+
+<!-- T O S H I B A -->
+<div id='toshiba_options' class='list_right'>
+<fieldset><legend>Toshiba</legend></fieldset>
+<div class='sr_title'>Toshiba Recovery Media Creator</div><br>
+<div class='left'>Download:</div><div class='right'>Not Available</div><br><br>
+<div class='left'>OS Support</div><div class='right'>Windows 7 / 8 / 8.1</div><br><br>
+<div class='sr_title'>Windows 8 / 8.1 Default OS Recovery Tool</div><br>
+<div class='left'>Shortcut:</div><div class='right'><a href='#' onclick='Windows8Recovery()'>RecoveryDrive.exe</a></div><br><br>
+<div class='left'>OS Support</div><div class='right'>Windows 8 / 8.1</div><br><br>
+
+</div><!-- end toshiba_options -->
+
+<!-- A S U S -->
+<div id='asus_options' class='list_right'>
+<fieldset><legend>Asus</legend></fieldset>
+
+<div class='sr_title'>Asus AI Recovery Burner</div><br>
+<div class='left'>Download:</div><div class='right'>Not Available</div><br><br>
+<div class='left'>OS Support</div><div class='right'>Windows Vista / 7 / 8 / 8.1</div><br><br>
+
+<div class='sr_title'>Windows 8 / 8.1 Default OS Recovery Tool</div><br>
+<div class='left'>Shortcut:</div><div class='right'><a href='#' onclick='Windows8Recovery()'>RecoveryDrive.exe</a></div><br><br>
+<div class='left'>OS Support</div><div class='right'>Windows 8 / 8.1</div><br><br>
+
+</div><!-- end asus_options -->
+
+<!-- A C E R -->
+<div id='acer_options' class='list_right'>
+<fieldset><legend>Acer</legend></fieldset>
+<div class='sr_title'>Windows 8 / 8.1 Default OS Recovery Tool</div><br>
+<div class='left'>Shortcut:</div><div class='right'><a href='#' onclick='Windows8Recovery()'>RecoveryDrive.exe</a></div><br><br>
+<div class='left'>OS Support</div><div class='right'>Windows 8 / 8.1</div><br><br>
+
+<div class='sr_title'>Acer eRecovery</div><br>
+<div class='left'>Download:</div><div class='right'>Not Available</div><br><br>
+<div class='left'>OS Support</div><div class='right'>Windows Vista / 7</div><br><br>
+
+</div><!-- end acer_options -->
+
+<!-- G A T E W A Y -->
+<div id='gateway_options' class='list_right'>
+<fieldset><legend>Gateway</legend></fieldset>
+<div class='sr_title'>Gateway eRecovery</div><br>
+<div class='left'>Download:</div><div class='right'>Not Available</div><br><br>
+<div class='left'>OS Support</div><div class='right'>Windows 7 / 8 / 8.1</div><br><br>
+<div class='sr_title'>Windows 8 / 8.1 Default OS Recovery Tool</div><br>
+<div class='left'>Shortcut:</div><div class='right'><a href='#' onclick='Windows8Recovery()'>RecoveryDrive.exe</a></div><br><br>
+<div class='left'>OS Support</div><div class='right'>Windows 8 / 8.1</div><br><br>
+
+</div><!-- end gateway_options -->
+
+<!-- S O N Y -->
+<div id='sony_options' class='list_right'>
+<fieldset><legend>Sony</legend></fieldset>
+<div class='sr_title'>Sony VAIO Care</div><br>
+<div class='left'>Download:</div><div class='right'><a href='http://esupport.sony.com/US/p/select-system.pl?DIRECTOR=DRIVER'>Sony VAIO Care</a></div><br><br>
+<div class='left'>OS Support</div><div class='right'>Windows 7 / 8 / 8.1</div><br><br>
+<div class='sr_title'>Windows 8 / 8.1 Default OS Recovery Tool</div><br>
+<div class='left'>Shortcut:</div><div class='right'><a href='#' onclick='Windows8Recovery()'>RecoveryDrive.exe</a></div><br><br>
+<div class='left'>OS Support</div><div class='right'>Windows 8 / 8.1</div><br><br>
+
+</div><!-- end sony_options -->
+
+<!-- S A M S U N G -->
+<div id='samsung_options' class='list_right'>
+<fieldset><legend>Samsung</legend></fieldset>
+<div class='sr_title'>Windows 8 / 8.1 Default OS Recovery Tool</div><br>
+<div class='left'>Shortcut:</div><div class='right'><a href='#' onclick='Windows8Recovery()'>RecoveryDrive.exe</a></div><br><br>
+<div class='left'>OS Support</div><div class='right'>Windows 8 / 8.1</div><br><br>
+
+<div class='sr_title'>Samsung Recovery Solution</div><br>
+<div class='left'>Download:</div><div class='right'><a href='http://www.samsung.com/hk_en/support/download/supportDownloadMain.do#'>Samsung Recovery Solution</a></div><br><br>
+<div class='left'>OS Support</div><div class='right'>Windows 7</div><br><br>
+
+</div><!-- end samsung_options -->
+
+<!-- E M A C H I N E S -->
+<div id='emachines_options' class='list_right'>
+<fieldset><legend>eMachines</legend></fieldset>
+<div class='sr_title'>eMachines eRecovery</div><br>
+<div class='left'>Download:</div><div class='right'>Not Available</div><br><br>
+<div class='left'>OS Support</div><div class='right'>Windows 7 / 8 / 8.1</div><br><br>
+<div class='sr_title'>Windows 8 / 8.1 Default OS Recovery Tool</div><br>
+<div class='left'>Shortcut:</div><div class='right'><a href='#' onclick='Windows8Recovery()'>RecoveryDrive.exe</a></div><br><br>
+<div class='left'>OS Support</div><div class='right'>Windows 8 / 8.1</div><br><br>
+
+</div><!-- end emachine_options -->
+
+<!-- E N D    M A N U F A C T U R E R    P R O G R A M    L I S T -->
+
+</div><!-- end systemrecovery -->
+
+<!-- E N D    S Y S T E M    R E C O V E R Y -->
+
+<!-- S T A R T    T O O L    B U T T O N    B A R -->
+<div id="button_bar" class="button_bar">
+<div class='title'>Tools</div>
+<div class="button_bar_center">
+<div class="tools all_buttons_color" type="button" onclick="MsInfo()">MsInfo32</div>
+<div class="tools all_buttons_color" type="button" onclick="DManagement()">Disk Management</div>
+<div class="tools all_buttons_color" type="button" onclick="OPAL()">OPAL Check</div>
+<div class="tools all_buttons_color" type="button" onclick="ARPrograms()">Add/Remove Programs</div>
+<div class="tools all_buttons_color" type="button" onclick="UEFI()">UEFI Check</div>
+<div class="tools all_buttons_color" type="button" onclick="CMD()">CMD Model Info</div>
+<div class="tools all_buttons_color" type="button" onclick="DeviceManager()">Device Manager</div>
+<div class="tools all_buttons_color" type="button" onclick="disableSleep()">Disable Sleep</div>
+<div class="tools all_buttons_color" type="button" onclick="DisableAutomaticRepair()">Disable Startup Automatic Repair</div>
+</div><!-- end button_bar_center--><br>
+
+<div class='title'>Windows PC Buyers Guide</div>
+<div class="button_bar_center clear_fix">
+<a href="https://www.ap.newyorklife.com/ap/v/index.jsp?contentId=1641&vgnextoid=ba2cbc9a4253d110bc9a4253d1101f3c1cacRCRD"><div class="tools all_buttons_color">NYL PC Buyers Guide</div></a>
+<a href="http://premier.dell.com/premier/acc_lgn.asp?661AC4A8DD7544F617EFF0F06339AB616B49C0A0EE4999303EEDB1CAA5848992A62AFA973784369A"><div class="tools all_buttons_color">Dell Computers</div></a>
+<a href="http://source.compucom.com/products/bundles/categories/results.aspx?DirectAccessKey=2715B750B14A4BE4B2854DCCE7D3DD44412D6CF4E9F74D87AE95752603756FD3"><div class="tools all_buttons_color">CompuCom Computers</div></a>
+</div><!-- end button_bar_center--><br>
+
+<div class='title'>Driver Downloads</div>
+<div class="button_bar_center clear_fix">
+<a href="http://www.dell.com/support/home/us/en/19/" class="drivers_L all_buttons_color">Dell</a>
+<a href="http://www8.hp.com/us/en/drivers.html" class="drivers_R all_buttons_color">HP</a>
+<a href="http://support.toshiba.com/" class="drivers_L all_buttons_color">Toshiba</a>
+<a href="http://support.lenovo.com/en_US/downloads/default.page?selector=expand" class="drivers_R all_buttons_color">IBM Lenovo</a>
+<a href="http://www.service.asus.com/#!downloads/c1wax" class="drivers_L all_buttons_color">ASUS</a>
+<a href="http://www.samsung.com/us/support/downloads" class="drivers_R all_buttons_color">Samsung</a>
+<a href="http://us.acer.com/ac/en/US/content/drivers" class="drivers_L all_buttons_color">Acer</a>
+<a href="http://us.gateway.com/gw/en/US/content/drivers-downloads" class="drivers_R all_buttons_color">Gateway</a>
+<a href="http://www.emachines.com/ec/en/US/content/drivers" class="drivers_L all_buttons_color">eMachine</a>
+<a href="http://www.sony.com/"  class="drivers_R all_buttons_color">Sony</a>
+</div><!-- end button_bar_center-->
+</div><br><br><!-- end button_bar-->
+
+<!-- E N D    T O O L    B U T T O N    B A R -->
+
+<! -- S T A R T    C R E D I T S --!>
+<div id='outer_credits_bg' onclick='aboutClose();'></div>
+<div id='credits'>
+<div id='credits_content'>
+	<div class='ctitle'>
+		<div class='ctitle_content'><span id='aboutversion'></span></div>
+		<div class='ctitle_bg'></div>
+	</div>
+	<div class='credits_text'>
+	System Analysis Tool was developed to assist with securedoc installation and system maintenence. 
+	<ul>	
+		<li>Check for the latest version.</li>
+	</ul>
+	</div>
+	<div class='ctitle'>
+		<div class='ctitle_content'>Credits</div>
+		<div class='ctitle_bg'></div>
+	</div>
+	<div class='credits_text'>
+	<ul>
+		<li>Bryan Jones</li>
+		<li>Patric Manisari</li>
+		<li>Rick Jordan</li>
+		<li>Peter Short</li>
+		<li>Kelby Perez</li>
+		<li>Brian Smith</li>
+		<li>Jeremy Campbel</li>
+		<li>Maria Luisa M Guglielmo</li>
+		<li>Bill Gilchrist</li>
+		<li>Jose Fabian</li>
+		<li>Timothy Jamison</li>
+		<li>Michael Christmas</li>
+		<li>Steven Winters</li>
+		<li>Jamison Winters</li>
+	</ul>
+	</div>
+	
+</div>
+<div id='credits_bg'></div>
+</div>
+
+<! --- E N D    C R E D I T S --- !>
+
+<script language="VBScript" src="Files\vbscript.vbs"></script>
+</body>
+</html>

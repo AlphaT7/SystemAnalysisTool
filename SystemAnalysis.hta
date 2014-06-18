@@ -8,13 +8,15 @@ modify and add just the file analysis ps1 as a third button
 <! D O N E !> modify credits to open/close
 <! D O N E !> add ibm laptops to the Driver downloads --- ADDED IBM TO LENOVO BUTTON
 <! D O N E !> add pc buyers guide info/links for dell/compucom (3 links) per MG suggestion
-<! D O N E !> move the code base into seperate files (html/css/javascript/vbscript/powershell/cmd-batch)
-<! N I X E D !> add enable-for-sd/disable tabs to the tools bar
+move the code base into seperate files (html/css/javascript/vbscript/powershell/cmd-batch)
+add enable-for-sd/disable tabs to the tools bar
 fix the tools bar to be centered, maybe create a containing div
-<! D O N E !> add button for comandline power settings to create sd power profile per brian smith suggestion
+add button for comandline power settings to create sd power profile per brian smith suggestion
 modify marquee to look better
 modify tool bar or display to indicate Tim Jamesons encryption checker
 modify tool bar to detect drivers for the rapid storage driver version per kelby suggestion
+modify system info to display if it is a desktop or lap top per Jamison Winters suggestion
+modify tool bar to include button for windows updates and automatic restart per Jamison Winters suggestion
 
 -->
 
@@ -69,6 +71,7 @@ document.getElementById("button_bar").style.display="block";
 <div id='updatealert'><marquee behavior="alternate" direction="left" > - Please check Tech Tools for the Latest Version of System Analysis - </marquee></div>
 <div id='menu'>
 <div id='systeminfobutton' class='menu_buttons all_buttons_color' onclick='displayInfo()'> - System Info - </div>
+<div id='fileanalysisbutton' class='menu_buttons all_buttons_color' onclick='displayFileInfo()'>File Analysis</div>
 <div id='systemrecoverybutton' class='menu_buttons all_buttons_color' onclick='displayRecovery()'>System Backup</div>
 <div id='htaversion' onclick='aboutOpen()'>Version</div>
 </div><!-- end menu -->

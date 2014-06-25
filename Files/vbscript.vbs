@@ -249,3 +249,40 @@ strCommand = objShell.ExpandEnvironmentStrings("%comspec%")
 Set objShellApp = CreateObject("Shell.Application")
 objShellApp.ShellExecute strCommand, "/K bcdedit /set {default} recoveryenabled No", , "RunAs", 1
 End Sub
+
+Sub windowsUpdates()
+Set oShell = CreateObject("Wscript.Shell")
+oShell.Run "wuapp.exe"
+End Sub
+
+'// C H E C K    I F    L A P T O P    O R    D E S K T O P
+
+If IsLaptop( "." ) Then
+   document.getELementById("systemtype").innerHTML = "Laptop"
+Else
+    document.getELementById("systemtype").innerHTML = "Desktop"
+End If
+
+
+Function IsLaptop( myComputer )
+' This Function checks if a computer has a battery pack.
+' One can assume that a computer with a battery pack is a laptop.
+'
+' Argument:
+' myComputer   [string] name of the computer to check,
+'                       or "." for the local computer
+' Return value:
+' True if a battery is detected, otherwise False
+'
+' Written by Rob van der Woude
+' http://www.robvanderwoude.com
+    On Error Resume Next
+    Set objWMIService = GetObject( "winmgmts://" & myComputer & "/root/cimv2" )
+    Set colItems = objWMIService.ExecQuery( "Select * from Win32_Battery", , 48 )
+    IsLaptop = False
+    For Each objItem in colItems
+        IsLaptop = True
+    Next
+    If Err Then Err.Clear
+    On Error Goto 0
+End Function

@@ -3,20 +3,25 @@
 <!-- System Analysis Tool .hta script developed by the New York Life Team at APAC, Utica NY -->
 <!--
 --- T O    D O    L I S T ---
+
+--- K E E P    I T    S I M P L E --- per Rachael Barberio suggestion
+
 modify and add just the file analysis ps1 as a third button
 <! D O N E !> modify credits to just include names, no name catagories
 <! D O N E !> modify credits to open/close
-<! D O N E !> add ibm laptops to the Driver downloads --- ADDED IBM TO LENOVO BUTTON
+<! D O N E !> add ibm laptops to the Driver downloads --- ADDED IBM TO LENOVO BUTTON per MG suggestion
 <! D O N E !> add pc buyers guide info/links for dell/compucom (3 links) per MG suggestion
-move the code base into seperate files (html/css/javascript/vbscript/powershell/cmd-batch)
+<! D O N E !> modify tool bar to include button for windows updates per Jamison Winters suggestion
+<! D O N E !> move the code base into seperate files (html/css/javascript/vbscript/powershell/cmd-batch)
+<! D O N E !> modify system info to display if it is a desktop or lap top per Jamison Winters suggestion
 add enable-for-sd/disable tabs to the tools bar
 fix the tools bar to be centered, maybe create a containing div
 add button for comandline power settings to create sd power profile per brian smith suggestion
 modify marquee to look better
 modify tool bar or display to indicate Tim Jamesons encryption checker
 modify tool bar to detect drivers for the rapid storage driver version per kelby suggestion
-modify system info to display if it is a desktop or lap top per Jamison Winters suggestion
-modify tool bar to include button for windows updates and automatic restart per Jamison Winters suggestion
+
+
 
 -->
 
@@ -25,7 +30,7 @@ modify tool bar to include button for windows updates and automatic restart per 
 
 intLeft = (intHorizontal + 400) / 2
 intTop = (intVertical + 400) / 2
-self.ResizeTo 940,607
+self.ResizeTo 940,632
 window.moveTo intLeft, intTop
 
 </SCRIPT>
@@ -48,7 +53,7 @@ SELECTION="yes"
 SHOWINTASKBAR="yes"
 SINGLEINSTANCE="yes"
 SYSMENU="yes"
-VERSION="4.0.0"
+VERSION="4.5.0"
 WINDOWSTATE="normal"
 />
 
@@ -68,8 +73,8 @@ document.getElementById("button_bar").style.display="block";
 <body>
 <img id="nylLogo" src="https://www.ap.newyorklife.com/Agency/General/FileLink/Static%20Files/Logo_Without_Tagline.png" width="150" height="150">
 
-<div id='updatealert'><marquee behavior="alternate" direction="left" > - Please check Tech Tools for the Latest Version of System Analysis - </marquee></div>
 <div id='menu'>
+<div id='updatealert'><marquee behavior="alternate" direction="left" > - Please check Tech Tools for the Latest Version of System Analysis - </marquee></div>
 <div id='systeminfobutton' class='menu_buttons all_buttons_color' onclick='displayInfo()'> - System Info - </div>
 <div id='fileanalysisbutton' class='menu_buttons all_buttons_color' onclick='displayFileInfo()'>File Analysis</div>
 <div id='systemrecoverybutton' class='menu_buttons all_buttons_color' onclick='displayRecovery()'>System Backup</div>
@@ -80,6 +85,7 @@ document.getElementById("button_bar").style.display="block";
 <div class='title'>System Type</div><br>
 <div class='left'>Manufacturer: </div><div id='manufacturer' class='right'>" & y.Manufacturer & "</div><br><br>
 <div class='left'>Model: </div><div id='model' class='right'>" & y.Model & "</div><br><br>
+<div class='left'>Type: </div><div id='systemtype' class='right'>" & y.Type & "</div><br><br>
 
 <div class='title'>Operating System</div><br>
 <div class='left'>OS: </div><div id="os" class='right'>" & y.Caption & "</div><br><br>
@@ -273,7 +279,8 @@ document.getElementById("button_bar").style.display="block";
 <div class="tools all_buttons_color" type="button" onclick="CMD()">CMD Model Info</div>
 <div class="tools all_buttons_color" type="button" onclick="DeviceManager()">Device Manager</div>
 <div class="tools all_buttons_color" type="button" onclick="disableSleep()">Disable Sleep</div>
-<div class="tools all_buttons_color" type="button" onclick="DisableAutomaticRepair()">Disable Startup Automatic Repair</div>
+<div class="tools all_buttons_color" type="button" onclick="windowsUpdates()">Windows Updates</div>
+<!--<div class="tools all_buttons_color" type="button" onclick="DisableAutomaticRepair()">Disable Startup Automatic Repair</div>-->
 </div><!-- end button_bar_center--><br>
 
 <div class='title'>Windows PC Buyers Guide</div>
@@ -326,6 +333,7 @@ document.getElementById("button_bar").style.display="block";
 		<li>Peter Short</li>
 		<li>Kelby Perez</li>
 		<li>Brian Smith</li>
+		<li>Rachael Barberio</li>
 		<li>Jeremy Campbel</li>
 		<li>Maria Luisa M Guglielmo</li>
 		<li>Bill Gilchrist</li>
